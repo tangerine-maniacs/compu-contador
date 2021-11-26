@@ -206,14 +206,26 @@ def main():
   print(f"Numbers: {ppbl(numbers)}")
   
   ## Cambiar el repetido por otro con 1 bit de diferencia
-  # Busco el número repetido
+  # Busco el primer número repetido y añado a switched_numbers una lista que tenga ese número pero cambiado.
+  switched_numbers = []
   for i, number_to_switch in enumerate(numbers):
     if numbers.count(number_to_switch) > 1:
       valid_permutations = get_valid_permutations(number_to_switch, numbers)
       print(f"Found permutations for {ppb(number_to_switch)}: {ppbl(valid_permutations)}")
-      switched_numbers = [[v if j != i else p for j, v in enumerate(numbers)] for p in valid_permutations]
+      switched_numbers += [[v if j != i else p for j, v in enumerate(numbers)] for p in valid_permutations]
+      break
+  # Cambiar el segundo número repetido por otro con 1 bit de diferencia.
+  for inverse_i, number_to_switch in enumerate(numbers[::-1]):
+    i = len(numbers) - 1 - inverse_i
+    if numbers.count(number_to_switch) > 1:
+      valid_permutations = get_valid_permutations(number_to_switch, numbers)
+      print(f"Found permutations for {ppb(number_to_switch)}: {ppbl(valid_permutations)}")
+      switched_numbers += [[v if j != i else p for j, v in enumerate(numbers)] for p in valid_permutations]
       break
 
+  # Si no hay ningún número repetido, la lista sobre la que trabajamos es la misma que la de entrada.
+  if switched_numbers == []:
+    switched_numbers = [numbers]
 
   print(f"Switched numbers (len {len(switched_numbers)}): {switched_numbers}")
   
