@@ -200,9 +200,9 @@ def main():
   # Leer la serie de números
   # numbers = get_numbers()
 
-  # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
+  numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
-  numbers = [int(n) for n in input("Números: ").split(" ")]
+  # numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
   
   ## Cambiar el repetido por otro con 1 bit de diferencia
@@ -274,22 +274,39 @@ def main():
 
     # print(f"J3: {simplify(tbj3[1], tbj3['x'])}")
     
-    # # Count logic   
-    # gate_count = 0
-    # for jk in ('j', 'k'):
-    #   for x in range(NUM_BITS):
-    #     # for eq in equations_by_jkn[jk][x].groups:
-    #       # Check if its a 1
-    #     eq = equations_by_jkn[jk][x].groups
-    #     if len(eq) == 1 and eq == [None] * len(eq[0]):
-    #       continue
+    # Count logic   
+    gate_count = {
+      "total": 0,
+      "or": 0,
+      "and": 0
+    }
 
-    #     if len(eq) > 1:
-    #       gate_count += 0.5 * (len(eq))
+    for jk in ('j', 'k'):
+      for x in range(NUM_BITS):
+        eq = equations_by_jkn[jk][x].groups
+        val = 0;
 
-    #     print(eq, 0.5 * (len(eq)))
+        # Empty gropu
+        if (len(eq) == 1 and eq[0] == [None] * NUM_BITS):
+          val = 0;
 
-    # print(f"Circuit has {gate_count} gates")
+        # Not empty group
+        # Count and gates
+        for group in eq:
+          not_none_count = NUM_BITS - group.count(None)
+          if not_none_count > 1:
+            gate_count["and"] += not_none_count * 0.5
+
+        # Count or gates
+        if len(eq) > 1:
+          gate_count["or"] += len(eq) * 0.5;
+
+    gate_count["total"] = gate_count["or"] + gate_count["and"]
+
+    print(f"Circuit has {gate_count['total']} gates. (Gates can have more than 2 inputs, each input cost .5)")
+    print(f"{gate_count['and']} AND gates")
+    print(f"{gate_count['or']} OR gates")
+    print("**This doesn't count the module to replace numbers**\n")
 
 
 if __name__ == '__main__':
