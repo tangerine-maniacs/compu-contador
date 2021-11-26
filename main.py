@@ -200,9 +200,9 @@ def main():
   # Leer la serie de números
   # numbers = get_numbers()
 
-  numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
+  # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
-  # numbers = [int(n) for n in input("Números: ").split(" ")]
+  numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
   
   ## Cambiar el repetido por otro con 1 bit de diferencia
@@ -221,6 +221,7 @@ def main():
   for switched_number_list_i, switched_number_list in enumerate(switched_numbers):
     print(f"===================")
     print(f"Working with list {switched_number_list_i}: {ppbl(switched_number_list)}")
+    print(f"Switched number list {switched_number_list_i}: {switched_number_list}")
 
     tt = TransitionTable(switched_number_list)
     print("Table: ")
@@ -303,7 +304,7 @@ def main():
 
     gate_count["total"] = gate_count["or"] + gate_count["and"]
 
-    print(f"Circuit has {gate_count['total']} gates. (Gates can have more than 2 inputs, each input cost .5)")
+    print(f"Circuit has {gate_count['total']} gates. (Gates can have more than 2 inputs, each input costs .5)")
     print(f"{gate_count['and']} AND gates")
     print(f"{gate_count['or']} OR gates")
     print("**This doesn't count the module to replace numbers**\n")
