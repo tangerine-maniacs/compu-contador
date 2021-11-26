@@ -197,14 +197,13 @@ class JKEquation:
   
 
 def main():
-  # Leer la serie de números
-  # numbers = get_numbers()
-
+  ## Leer la serie de números
   # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
   numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
   
+
   ## Cambiar el repetido por otro con 1 bit de diferencia
   # Busco el primer número repetido y añado a switched_numbers una lista que tenga ese número pero cambiado.
   switched_numbers = []
@@ -229,6 +228,7 @@ def main():
 
   print(f"Switched numbers (len {len(switched_numbers)}): {switched_numbers}")
   
+
   ## Calculate JK
   for switched_number_list_i, switched_number_list in enumerate(switched_numbers):
     print(f"===================")
@@ -239,8 +239,10 @@ def main():
     print("Table: ")
     print(tt)
 
-    equations_by_jkn = { 'j': {}, 'k': {} }
+    
     ## Karnaugh
+    equations_by_jkn = { 'j': {}, 'k': {} }
+    
     for jk in ('j', 'k'):
       for n in range(NUM_BITS):
         transition_by_jkn = tt.get_transitions_by_jkn(jk, n)
@@ -254,7 +256,8 @@ def main():
         print(f"Equation {jk}_{n}: {equations_by_jkn[jk][n]}")
         # equation_result_by_jkn[jk][n] = equation.calculate(0b0100)
 
-    # Fill transition table back.
+
+    ## Fill transition table back.
     for i, (prev, nxt, JKs) in enumerate(tt.transitions):
       if nxt != None:
         continue
@@ -285,9 +288,22 @@ def main():
     print(tt)
 
 
-    # print(f"J3: {simplify(tbj3[1], tbj3['x'])}")
-    
-    # Count logic   
+    ## Check if it is a valid solution
+    for i in range(2**NUM_BITS):
+      found = False
+      nxt = tt.transitions[i][1]
+      for j in range(2**NUM_BITS - len(numbers) + 1):
+        if nxt in numbers:
+          found = True
+          break
+        else:
+          nxt = tt.transitions[nxt][1]
+      if not found:
+        print(f"------------ {tt.transitions[i][1]} doesn't leed to the main loop!! ------------")
+        print(f"--------------- don't trust this solution, get to the next one :) --------------")
+
+
+    ## Count logic   
     gate_count = {
       "total": 0,
       "or": 0,
@@ -299,7 +315,7 @@ def main():
         eq = equations_by_jkn[jk][x].groups
         val = 0;
 
-        # Empty gropu
+        # Empty group
         if (len(eq) == 1 and eq[0] == [None] * NUM_BITS):
           val = 0;
 
