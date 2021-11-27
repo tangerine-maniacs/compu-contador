@@ -196,14 +196,7 @@ class JKEquation:
     return ret if ret != "" else "1"
   
 
-def main():
-  ## Leer la serie de números
-  # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
-  # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
-  numbers = [int(n) for n in input("Números: ").split(" ")]
-  print(f"Numbers: {ppbl(numbers)}")
-  
-
+def execute(numbers: list) -> None:
   ## Cambiar el repetido por otro con 1 bit de diferencia
   # Busco el primer número repetido y añado a switched_numbers una lista que tenga ese número pero cambiado.
   switched_numbers = []
@@ -339,5 +332,10 @@ def main():
 
 
 if __name__ == '__main__':
-  main()
+  ## Leer la serie de números
+  # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
+  # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
+  numbers = [int(n) for n in input("Números: ").split(" ")]
+  print(f"Numbers: {ppbl(numbers)}")
+  execute(numbers)
   
