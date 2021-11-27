@@ -1,7 +1,6 @@
+#region Lib
 # Repo:
 # https://github.com/zhcHoward/Kmap
-
-#region Lib
 
 import itertools
 from collections import defaultdict
