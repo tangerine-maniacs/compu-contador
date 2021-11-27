@@ -6,6 +6,10 @@ Calcula el mapa de Karnaugh para una serie de números dados. Automáticamente s
 Se muestra la tabla de transiciones completa, así como el número de puertas lógicas utilizadas con el fin de encontrar la solución más
 eficiciente.
 
+## Contribuir
+
+Aceptamos PRs y Issues. Muchas gracias. 😊
+
 <!-- Resuelve la primera parte de la práctica de Karnaugh, para cualquier set de números. -->
 
 ## Uso
@@ -33,7 +37,7 @@ Switched numbers (len 1): [[0, 9, 1, 2, 3, 5, 8, 13]]
 ===================
 Working with list 0: ['0000', '1001', '0001', '0010', '0011', '0101', '1000', '1101']
 Switched number list 0: [0, 9, 1, 2, 3, 5, 8, 13]
-Table: 
+Table:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 0010 | 0 x | 0 x | 1 x | x 1
@@ -61,7 +65,7 @@ Equation k_1: Q0
 Equation k_2: 1
 Equation k_3: Q0
 
-Table filled: 
+Table filled:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 0010 | 0 x | 0 x | 1 x | x 1
@@ -103,7 +107,7 @@ Switched numbers (len 2): [[0, 9, 15, 13, 14, 8, 12, 2], [0, 9, 15, 13, 4, 8, 12
 ===================
 Working with list 0: ['0000', '1001', '1111', '1101', '1110', '1000', '1100', '0010']
 Switched number list 0: [0, 9, 15, 13, 14, 8, 12, 2]
-Table: 
+Table:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> xxxx | x x | x x | x x | x x
@@ -131,7 +135,7 @@ Equation k_1: 1
 Equation k_2: nQ0
 Equation k_3: nQ0nQ1Q2
 
-Table filled: 
+Table filled:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 1011 | 1 x | 0 x | 1 x | x 0
@@ -158,7 +162,7 @@ Circuit has 4.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 ===================
 Working with list 1: ['0000', '1001', '1111', '1101', '0100', '1000', '1100', '0010']
 Switched number list 1: [0, 9, 15, 13, 4, 8, 12, 2]
-Table: 
+Table:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> xxxx | x x | x x | x x | x x
@@ -186,7 +190,7 @@ Equation k_1: 1
 Equation k_2: nQ0
 Equation k_3: nQ1Q2
 
-Table filled: 
+Table filled:
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 1011 | 1 x | 0 x | 1 x | x 0
@@ -210,5 +214,6 @@ Circuit has 7.0 gates. (Gates can have more than 2 inputs, each input costs .5)
 1.0 OR gates
 **This doesn't count the module to replace numbers**
 ```
+
 La primera solución solo utiliza 4.5 puertas lógicas, mientras que la segunda, 7. Por tanto, reemplazar 12 por 14 es
 más eficiente que reemplazarlo por 4, puesto que utiliza menos puertas lógicas.
