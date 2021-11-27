@@ -1,5 +1,7 @@
 # compu-karnaugh
 
+![Meme de stonks pero con un hombre mandarina](https://user-images.githubusercontent.com/7889022/143682566-336201e8-8f4c-4119-914e-f3b70402d219.png)
+
 Calcula el mapa de Karnaugh para una serie de números dados. Automáticamente se remplaza el número repetido por todas las posibilidades.
 Se muestra la tabla de transiciones completa, así como el número de puertas lógicas utilizadas con el fin de encontrar la solución más
 eficiciente.
