@@ -1,5 +1,12 @@
+# Code
 __pycache__
+.vscode
+
+# Compile
 build
 dist
 main.spec
 .DS_Store
+
+# Verilog
+prac10*

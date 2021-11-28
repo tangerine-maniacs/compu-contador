@@ -33,11 +33,12 @@ Salida:
 ```
 Numbers: ['0000', '0001', '0001', '0010', '0011', '0101', '1000', '1101']
 Found permutations for 0001: ['1001']
-Switched numbers (len 1): [[0, 9, 1, 2, 3, 5, 8, 13]]
+Found permutations for 0001: ['1001']
+Switched numbers (len 2): [[0, 9, 1, 2, 3, 5, 8, 13], [0, 1, 9, 2, 3, 5, 8, 13]]
 ===================
 Working with list 0: ['0000', '1001', '0001', '0010', '0011', '0101', '1000', '1101']
 Switched number list 0: [0, 9, 1, 2, 3, 5, 8, 13]
-Table:
+Table: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 0010 | 0 x | 0 x | 1 x | x 1
@@ -65,7 +66,7 @@ Equation k_1: Q0
 Equation k_2: 1
 Equation k_3: Q0
 
-Table filled:
+Table filled: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 0010 | 0 x | 0 x | 1 x | x 1
@@ -84,9 +85,66 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1011 | x 0 | x 1 | x 0 | 1 x
 1111 -> 0000 | x 1 | x 1 | x 1 | x 1
 
-Circuit has 8.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 32.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
 5.5 AND gates
 3.0 OR gates
+**This doesn't count the module to replace numbers**
+
+===================
+Working with list 1: ['0000', '0001', '1001', '0010', '0011', '0101', '1000', '1101']
+Switched number list 1: [0, 1, 9, 2, 3, 5, 8, 13]
+Table: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 0001 | 0 x | 0 x | 0 x | 1 x
+0001 -> 1001 | 1 x | 0 x | 0 x | x 0
+0010 -> 0011 | 0 x | 0 x | x 0 | 1 x
+0011 -> 0101 | 0 x | 1 x | x 1 | x 0
+0100 -> xxxx | x x | x x | x x | x x
+0101 -> 1000 | 1 x | x 1 | 0 x | x 1
+0110 -> xxxx | x x | x x | x x | x x
+0111 -> xxxx | x x | x x | x x | x x
+1000 -> 1101 | x 0 | 1 x | 0 x | 1 x
+1001 -> 0010 | x 1 | 0 x | 1 x | x 1
+1010 -> xxxx | x x | x x | x x | x x
+1011 -> xxxx | x x | x x | x x | x x
+1100 -> xxxx | x x | x x | x x | x x
+1101 -> 0000 | x 1 | x 1 | 0 x | x 1
+1110 -> xxxx | x x | x x | x x | x x
+1111 -> xxxx | x x | x x | x x | x x
+
+Equation j_0: 1
+Equation j_1: Q0nQ2Q3
+Equation j_2: nQ0Q3 + Q0Q1
+Equation j_3: Q0nQ1
+Equation k_0: Q3 + Q2
+Equation k_1: Q0
+Equation k_2: 1
+Equation k_3: Q0
+
+Table filled: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 0001 | 0 x | 0 x | 0 x | 1 x
+0001 -> 1001 | 1 x | 0 x | 0 x | x 0
+0010 -> 0011 | 0 x | 0 x | x 0 | 1 x
+0011 -> 0101 | 0 x | 1 x | x 1 | x 0
+0100 -> 0001 | 0 x | x 1 | 0 x | 1 x
+0101 -> 1000 | 1 x | x 1 | 0 x | x 1
+0110 -> 0011 | 0 x | x 1 | x 0 | 1 x
+0111 -> 0000 | 0 x | x 1 | x 1 | x 1
+1000 -> 1101 | x 0 | 1 x | 0 x | 1 x
+1001 -> 0010 | x 1 | 0 x | 1 x | x 1
+1010 -> 1111 | x 0 | 1 x | x 0 | 1 x
+1011 -> 0100 | x 1 | 1 x | x 1 | x 1
+1100 -> 1001 | x 0 | x 1 | 0 x | 1 x
+1101 -> 0000 | x 1 | x 1 | 0 x | x 1
+1110 -> 1011 | x 0 | x 1 | x 0 | 1 x
+1111 -> 0000 | x 1 | x 1 | x 1 | x 1
+
+Circuit has 30.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
+4.5 AND gates
+2.0 OR gates
 **This doesn't count the module to replace numbers**
 ```
 
@@ -103,11 +161,12 @@ Salida
 ```
 Numbers: ['0000', '1001', '1111', '1101', '1100', '1000', '1100', '0010']
 Found permutations for 1100: ['1110', '0100']
-Switched numbers (len 2): [[0, 9, 15, 13, 14, 8, 12, 2], [0, 9, 15, 13, 4, 8, 12, 2]]
+Found permutations for 1100: ['1110', '0100']
+Switched numbers (len 4): [[0, 9, 15, 13, 14, 8, 12, 2], [0, 9, 15, 13, 4, 8, 12, 2], [0, 9, 15, 13, 12, 8, 14, 2], [0, 9, 15, 13, 12, 8, 4, 2]]
 ===================
 Working with list 0: ['0000', '1001', '1111', '1101', '1110', '1000', '1100', '0010']
 Switched number list 0: [0, 9, 15, 13, 14, 8, 12, 2]
-Table:
+Table: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> xxxx | x x | x x | x x | x x
@@ -135,7 +194,7 @@ Equation k_1: 1
 Equation k_2: nQ0
 Equation k_3: nQ0nQ1Q2
 
-Table filled:
+Table filled: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 1011 | 1 x | 0 x | 1 x | x 0
@@ -154,7 +213,8 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 4.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 28.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
 3.5 AND gates
 1.0 OR gates
 **This doesn't count the module to replace numbers**
@@ -162,7 +222,7 @@ Circuit has 4.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 ===================
 Working with list 1: ['0000', '1001', '1111', '1101', '0100', '1000', '1100', '0010']
 Switched number list 1: [0, 9, 15, 13, 4, 8, 12, 2]
-Table:
+Table: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> xxxx | x x | x x | x x | x x
@@ -190,7 +250,7 @@ Equation k_1: 1
 Equation k_2: nQ0
 Equation k_3: nQ1Q2
 
-Table filled:
+Table filled: 
 prev -> next | J K3| J K2| J K1| J K0
 0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
 0001 -> 1011 | 1 x | 0 x | 1 x | x 0
@@ -209,11 +269,121 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 7.0 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 31.0 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
 6.0 AND gates
 1.0 OR gates
 **This doesn't count the module to replace numbers**
-```
 
-La primera solución solo utiliza 4.5 puertas lógicas, mientras que la segunda, 7. Por tanto, reemplazar 12 por 14 es
-más eficiente que reemplazarlo por 4, puesto que utiliza menos puertas lógicas.
+===================
+Working with list 2: ['0000', '1001', '1111', '1101', '1100', '1000', '1110', '0010']
+Switched number list 2: [0, 9, 15, 13, 12, 8, 14, 2]
+Table: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
+0001 -> xxxx | x x | x x | x x | x x
+0010 -> 0000 | 0 x | 0 x | x 1 | 0 x
+0011 -> xxxx | x x | x x | x x | x x
+0100 -> xxxx | x x | x x | x x | x x
+0101 -> xxxx | x x | x x | x x | x x
+0110 -> xxxx | x x | x x | x x | x x
+0111 -> xxxx | x x | x x | x x | x x
+1000 -> 1110 | x 0 | 1 x | 1 x | 0 x
+1001 -> 1111 | x 0 | 1 x | 1 x | x 0
+1010 -> xxxx | x x | x x | x x | x x
+1011 -> xxxx | x x | x x | x x | x x
+1100 -> 1000 | x 0 | x 1 | 0 x | 0 x
+1101 -> 1100 | x 0 | x 0 | 0 x | x 1
+1110 -> 0010 | x 1 | x 1 | x 0 | 0 x
+1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+Equation j_0: nQ1nQ3
+Equation j_1: nQ2Q3
+Equation j_2: Q3
+Equation j_3: nQ1
+Equation k_0: nQ1Q2
+Equation k_1: nQ2 + Q0
+Equation k_2: nQ0
+Equation k_3: nQ0Q1
+
+Table filled: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
+0001 -> 1001 | 1 x | 0 x | 0 x | x 0
+0010 -> 0000 | 0 x | 0 x | x 1 | 0 x
+0011 -> 0001 | 0 x | 0 x | x 1 | x 0
+0100 -> 1001 | 1 x | x 1 | 0 x | 1 x
+0101 -> 1100 | 1 x | x 0 | 0 x | x 1
+0110 -> 0010 | 0 x | x 1 | x 0 | 0 x
+0111 -> 0101 | 0 x | x 0 | x 1 | x 0
+1000 -> 1110 | x 0 | 1 x | 1 x | 0 x
+1001 -> 1111 | x 0 | 1 x | 1 x | x 0
+1010 -> 0100 | x 1 | 1 x | x 1 | 0 x
+1011 -> 1101 | x 0 | 1 x | x 1 | x 0
+1100 -> 1000 | x 0 | x 1 | 0 x | 0 x
+1101 -> 1100 | x 0 | x 0 | 0 x | x 1
+1110 -> 0010 | x 1 | x 1 | x 0 | 0 x
+1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+Circuit has 29.0 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
+4.0 AND gates
+1.0 OR gates
+**This doesn't count the module to replace numbers**
+
+===================
+Working with list 3: ['0000', '1001', '1111', '1101', '1100', '1000', '0100', '0010']
+Switched number list 3: [0, 9, 15, 13, 12, 8, 4, 2]
+Table: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
+0001 -> xxxx | x x | x x | x x | x x
+0010 -> 0000 | 0 x | 0 x | x 1 | 0 x
+0011 -> xxxx | x x | x x | x x | x x
+0100 -> 0010 | 0 x | x 1 | 1 x | 0 x
+0101 -> xxxx | x x | x x | x x | x x
+0110 -> xxxx | x x | x x | x x | x x
+0111 -> xxxx | x x | x x | x x | x x
+1000 -> 0100 | x 1 | 1 x | 0 x | 0 x
+1001 -> 1111 | x 0 | 1 x | 1 x | x 0
+1010 -> xxxx | x x | x x | x x | x x
+1011 -> xxxx | x x | x x | x x | x x
+1100 -> 1000 | x 0 | x 1 | 0 x | 0 x
+1101 -> 1100 | x 0 | x 0 | 0 x | x 1
+1110 -> xxxx | x x | x x | x x | x x
+1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+Equation j_0: nQ1nQ2nQ3
+Equation j_1: Q2nQ3 + Q0nQ2
+Equation j_2: Q3
+Equation j_3: nQ1nQ2
+Equation k_0: nQ1Q2
+Equation k_1: 1
+Equation k_2: nQ0
+Equation k_3: nQ0nQ2
+
+Table filled: 
+prev -> next | J K3| J K2| J K1| J K0
+0000 -> 1001 | 1 x | 0 x | 0 x | 1 x
+0001 -> 1011 | 1 x | 0 x | 1 x | x 0
+0010 -> 0000 | 0 x | 0 x | x 1 | 0 x
+0011 -> 0001 | 0 x | 0 x | x 1 | x 0
+0100 -> 0010 | 0 x | x 1 | 1 x | 0 x
+0101 -> 0110 | 0 x | x 0 | 1 x | x 1
+0110 -> 0000 | 0 x | x 1 | x 1 | 0 x
+0111 -> 0101 | 0 x | x 0 | x 1 | x 0
+1000 -> 0100 | x 1 | 1 x | 0 x | 0 x
+1001 -> 1111 | x 0 | 1 x | 1 x | x 0
+1010 -> 0100 | x 1 | 1 x | x 1 | 0 x
+1011 -> 1101 | x 0 | 1 x | x 1 | x 0
+1100 -> 1000 | x 0 | x 1 | 0 x | 0 x
+1101 -> 1100 | x 0 | x 0 | 0 x | x 1
+1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
+1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+Circuit has 31.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+24 JK registers
+6.5 AND gates
+1.0 OR gates
+**This doesn't count the module to replace numbers**
+```

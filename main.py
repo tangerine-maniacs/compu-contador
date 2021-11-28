@@ -1,3 +1,4 @@
+from os import curdir
 from karnaugh import simplify
 
 NUM_BITS = 4
@@ -194,9 +195,9 @@ class JKEquation:
     
     ret = " + ".join(monomials)
     return ret if ret != "" else "1"
-  
 
-def execute(numbers: list) -> None:
+## EXECUTE
+def switch_numbers(numbers: list) -> list:
   ## Cambiar el repetido por otro con 1 bit de diferencia
   # Busco el primer número repetido y añado a switched_numbers una lista que tenga ese número pero cambiado.
   switched_numbers = []
@@ -216,118 +217,154 @@ def execute(numbers: list) -> None:
       break
 
   # Si no hay ningún número repetido, la lista sobre la que trabajamos es la misma que la de entrada.
-  if switched_numbers == []:
-    switched_numbers = [numbers]
+  return (switched_numbers if len(switched_numbers) > 0 else [numbers])
 
+def table_2_karnaugh(tt:TransitionTable) -> dict:
+  equations_by_jkn = { 'j': {}, 'k': {} }
+  
+  for jk in ('j', 'k'):
+    for n in range(NUM_BITS):
+      transition_by_jkn = tt.get_transitions_by_jkn(jk, n)
+      # print(f"Transition {jk}_{n}: {transition_by_jkn")
+
+      simplified_by_jkn = simplify(transition_by_jkn[1], transition_by_jkn['x'])
+      # print(f"Simplified {jk}_{n}: {simplified_by_jkn}")
+
+      equations_by_jkn[jk][n] = JKEquation(simplified_by_jkn)
+
+      print(f"Equation {jk}_{n}: {equations_by_jkn[jk][n]}")
+      # equation_result_by_jkn[jk][n] = equation.calculate(0b0100)
+  
+  return equations_by_jkn
+
+def karnaugh_2_table(tt:TransitionTable, equations:dict) -> None:
+  ## Fill transition table back.
+  for i, (prev, nxt, JKs) in enumerate(tt.transitions):
+    if nxt != None:
+      continue
+    
+    equation_result_by_jkn = { 'j': {}, 'k': {} }
+    for jk in ('j', 'k'):
+      for n in range(NUM_BITS):
+        equation_result_by_jkn[jk][n] = equations[jk][n].calculate(prev)
+        # print(f"Calculated {jk}_{n} for {ppb(prev)}={equation_result_by_jkn[jk][n]}")
+
+    
+    nxt_lst = []
+    for n in range(NUM_BITS):
+      jk_value = JK(equation_result_by_jkn['j'][n], equation_result_by_jkn['k'][n])
+      bit = get_bit(prev, n)
+      nxt_lst.append(get_next_value(bit, jk_value))
+      match bit:
+        case 0:
+          jk_value.k = None
+        case 1:
+          jk_value.j = None
+
+      tt.transitions[i][2][n] = jk_value
+    tt.transitions[i][1] = bitarray_to_int(nxt_lst[::-1])
+
+def get_invalid_solutions(tt:TransitionTable) -> list:
+  invalid = []
+  invalid_sequence = []
+  
+  for i in range(2**NUM_BITS):
+    invalid_sequence = []
+    curr, nxt = tt.transitions[i][:2]
+    
+    for j in range(2**NUM_BITS - len(numbers) + 1):
+      if curr in numbers:
+        break
+      else:
+        invalid_sequence.append(curr)
+      
+      if nxt in invalid_sequence:
+        invalid += [invalid_sequence]
+        break
+      
+      curr = nxt
+      nxt = tt.transitions[nxt][1]
+
+  return invalid
+
+    # if not found:
+    #   invalid += [tt.transitions[i][1]]
+    #   print(f"------------ {tt.transitions[i][1]} doesn't leed to the main loop!! ------------")
+    #   print(f"--------------- don't trust this solution, get to the next one :) --------------")
+
+def count_gates(equations:list) -> dict:
+  gate_count = {
+    "total": 0,
+    "or": [0, 0, 0],
+    "and": [0, 0, 0]
+  }
+
+  for jk in ('j', 'k'):
+    for x in range(NUM_BITS):
+      eq = equations[jk][x].groups
+      val = 0;
+
+      # Empty group
+      if (len(eq) == 1 and eq[0] == [None] * NUM_BITS):
+        val = 0;
+
+      # Not empty group
+      # Count and gates
+      for group in eq:
+        not_none_count = NUM_BITS - group.count(None)
+        if not_none_count > 1:
+          gate_count["and"][not_none_count - 2] += 1
+
+      # Count or gates
+      if len(eq) > 1:
+        gate_count["or"][len(eq) - 2] += 1
+
+  gate_count["total"] = sum([(1 + 0.5*x) * (gate_count["or"][x] + gate_count["and"][x]) for x in range(3)]) + 24
+
+  return gate_count
+
+
+def execute(numbers: list) -> None:
+
+  switched_numbers = switch_numbers(numbers)
   print(f"Switched numbers (len {len(switched_numbers)}): {switched_numbers}")
   
 
-  ## Calculate JK
   for switched_number_list_i, switched_number_list in enumerate(switched_numbers):
     print(f"===================")
     print(f"Working with list {switched_number_list_i}: {ppbl(switched_number_list)}")
     print(f"Switched number list {switched_number_list_i}: {switched_number_list}")
 
+    # Calculate JK
     tt = TransitionTable(switched_number_list)
     print("Table: ")
     print(tt)
 
-    
-    ## Karnaugh
-    equations_by_jkn = { 'j': {}, 'k': {} }
-    
-    for jk in ('j', 'k'):
-      for n in range(NUM_BITS):
-        transition_by_jkn = tt.get_transitions_by_jkn(jk, n)
-        # print(f"Transition {jk}_{n}: {transition_by_jkn")
-
-        simplified_by_jkn = simplify(transition_by_jkn[1], transition_by_jkn['x'])
-        # print(f"Simplified {jk}_{n}: {simplified_by_jkn}")
-
-        equations_by_jkn[jk][n] = JKEquation(simplified_by_jkn)
-
-        print(f"Equation {jk}_{n}: {equations_by_jkn[jk][n]}")
-        # equation_result_by_jkn[jk][n] = equation.calculate(0b0100)
-
+    # Karnaugh
+    equations_by_jkn = table_2_karnaugh(tt)
 
     ## Fill transition table back.
-    for i, (prev, nxt, JKs) in enumerate(tt.transitions):
-      if nxt != None:
-        continue
-      
-      equation_result_by_jkn = { 'j': {}, 'k': {} }
-      for jk in ('j', 'k'):
-        for n in range(NUM_BITS):
-          equation_result_by_jkn[jk][n] = equations_by_jkn[jk][n].calculate(prev)
-          # print(f"Calculated {jk}_{n} for {ppb(prev)}={equation_result_by_jkn[jk][n]}")
-
-      
-      nxt_lst = []
-      for n in range(NUM_BITS):
-        jk_value = JK(equation_result_by_jkn['j'][n], equation_result_by_jkn['k'][n])
-        bit = get_bit(prev, n)
-        nxt_lst.append(get_next_value(bit, jk_value))
-        match bit:
-          case 0:
-            jk_value.k = None
-          case 1:
-            jk_value.j = None
-
-        tt.transitions[i][2][n] = jk_value
-      tt.transitions[i][1] = bitarray_to_int(nxt_lst[::-1])
-    
+    karnaugh_2_table(tt, equations_by_jkn)
     print()
     print("Table filled: ")
     print(tt)
 
-
     ## Check if it is a valid solution
-    for i in range(2**NUM_BITS):
-      found = False
-      nxt = tt.transitions[i][1]
-      for j in range(2**NUM_BITS - len(numbers) + 1):
-        if nxt in numbers:
-          found = True
-          break
-        else:
-          nxt = tt.transitions[nxt][1]
-      if not found:
-        print(f"------------ {tt.transitions[i][1]} doesn't leed to the main loop!! ------------")
-        print(f"--------------- don't trust this solution, get to the next one :) --------------")
+    invalids = get_invalid_solutions(tt)
+    if len(invalids) > 0:
+      for invalid in invalids:
+        print(f"The series {invalid} is a loop and isn't part of the main one!!!")
+      print("If you need this solution, fix it yourself :)")
+    
 
-
-    ## Count logic   
-    gate_count = {
-      "total": 0,
-      "or": 0,
-      "and": 0
-    }
-
-    for jk in ('j', 'k'):
-      for x in range(NUM_BITS):
-        eq = equations_by_jkn[jk][x].groups
-        val = 0;
-
-        # Empty group
-        if (len(eq) == 1 and eq[0] == [None] * NUM_BITS):
-          val = 0;
-
-        # Not empty group
-        # Count and gates
-        for group in eq:
-          not_none_count = NUM_BITS - group.count(None)
-          if not_none_count > 1:
-            gate_count["and"] += not_none_count * 0.5
-
-        # Count or gates
-        if len(eq) > 1:
-          gate_count["or"] += len(eq) * 0.5;
-
-    gate_count["total"] = gate_count["or"] + gate_count["and"]
+    ## Gate count
+    gate_count = count_gates(equations_by_jkn)
 
     print(f"Circuit has {gate_count['total']} gates. (Gates can have more than 2 inputs, each input costs .5)")
-    print(f"{gate_count['and']} AND gates")
-    print(f"{gate_count['or']} OR gates")
+    print(f"24 JK registers")
+    
+    print(f"{sum([(1 + 0.5 * i) * g for i, g in enumerate(gate_count['and'])])} AND gates")
+    print(f"{sum([(1 + 0.5 * i) * g for i, g in enumerate(gate_count['or'])])} OR gates")
     print("**This doesn't count the module to replace numbers**\n")
 
 
