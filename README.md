@@ -57,6 +57,8 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> xxxx | x x | x x | x x | x x
 
+The equation for switching the repeated number is: nQ0Q3 + Q2Q3
+
 Equation j_0: 1
 Equation j_1: Q0nQ2nQ3
 Equation j_2: nQ0Q3 + Q0Q1
@@ -85,11 +87,12 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1011 | x 0 | x 1 | x 0 | 1 x
 1111 -> 0000 | x 1 | x 1 | x 1 | x 1
 
-Circuit has 32.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 35.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
-5.5 AND gates
-3.0 OR gates
-**This doesn't count the module to replace numbers**
+7.5 AND gates
+4.0 OR gates
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
 
 ===================
 Working with list 1: ['0000', '0001', '1001', '0010', '0011', '0101', '1000', '1101']
@@ -113,11 +116,13 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> xxxx | x x | x x | x x | x x
 
+The equation for switching the repeated number is: nQ0Q3 + Q2Q3
+
 Equation j_0: 1
 Equation j_1: Q0nQ2Q3
 Equation j_2: nQ0Q3 + Q0Q1
 Equation j_3: Q0nQ1
-Equation k_0: Q3 + Q2
+Equation k_0: Q2 + Q3
 Equation k_1: Q0
 Equation k_2: 1
 Equation k_3: Q0
@@ -141,11 +146,13 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1011 | x 0 | x 1 | x 0 | 1 x
 1111 -> 0000 | x 1 | x 1 | x 1 | x 1
 
-Circuit has 30.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 33.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
-4.5 AND gates
-2.0 OR gates
-**This doesn't count the module to replace numbers**
+6.5 AND gates
+3.0 OR gates
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
+
 ```
 
 ## Ejemplo 2
@@ -185,6 +192,8 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
+The equation for switching the repeated number is: Q1nQ2 + Q0Q1
+
 Equation j_0: nQ1nQ3
 Equation j_1: Q0 + Q2
 Equation j_2: Q3
@@ -213,11 +222,12 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 28.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 31.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
-3.5 AND gates
-1.0 OR gates
-**This doesn't count the module to replace numbers**
+5.5 AND gates
+2.0 OR gates
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
 
 ===================
 Working with list 1: ['0000', '1001', '1111', '1101', '0100', '1000', '1100', '0010']
@@ -240,6 +250,8 @@ prev -> next | J K3| J K2| J K1| J K0
 1101 -> 0100 | x 1 | x 0 | 0 x | x 1
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+The equation for switching the repeated number is: Q3
 
 Equation j_0: nQ1nQ2nQ3
 Equation j_1: nQ0Q2Q3 + Q0nQ2
@@ -273,7 +285,8 @@ Circuit has 31.0 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
 6.0 AND gates
 1.0 OR gates
-**This doesn't count the module to replace numbers**
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
 
 ===================
 Working with list 2: ['0000', '1001', '1111', '1101', '1100', '1000', '1110', '0010']
@@ -296,6 +309,8 @@ prev -> next | J K3| J K2| J K1| J K0
 1101 -> 1100 | x 0 | x 0 | 0 x | x 1
 1110 -> 0010 | x 1 | x 1 | x 0 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
+
+The equation for switching the repeated number is: Q1nQ2 + Q0Q1
 
 Equation j_0: nQ1nQ3
 Equation j_1: nQ2Q3
@@ -325,11 +340,12 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 0010 | x 1 | x 1 | x 0 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 29.0 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 32.0 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
-4.0 AND gates
-1.0 OR gates
-**This doesn't count the module to replace numbers**
+6.0 AND gates
+2.0 OR gates
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
 
 ===================
 Working with list 3: ['0000', '1001', '1111', '1101', '1100', '1000', '0100', '0010']
@@ -353,8 +369,10 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
+The equation for switching the repeated number is: Q3
+
 Equation j_0: nQ1nQ2nQ3
-Equation j_1: Q2nQ3 + Q0nQ2
+Equation j_1: Q0nQ2 + Q2nQ3
 Equation j_2: Q3
 Equation j_3: nQ1nQ2
 Equation k_0: nQ1Q2
@@ -385,5 +403,7 @@ Circuit has 31.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
 6.5 AND gates
 1.0 OR gates
-**This doesn't count the module to replace numbers**
+**This COUNTS the module to replace numbers**
+**Remember that wires can be shared, so the real number might be lower**
+
 ```

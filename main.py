@@ -1,3 +1,4 @@
+#!/bin/python3.10
 from os import curdir
 from karnaugh import simplify
 
@@ -62,7 +63,7 @@ def ppjk(jk) -> str:
 # pretty print number in binary
 def ppb(n):
   if n is None:
-    return "xxxx"
+    return "x" * NUM_BITS
   return "{0:b}".format(n).rjust(NUM_BITS, '0')
 # pretty print binary list
 def ppbl(lst):
@@ -216,8 +217,11 @@ def switch_numbers(numbers: list) -> list:
       switched_numbers += [[v if j != i else p for j, v in enumerate(numbers)] for p in valid_permutations]
       break
 
-  # Si no hay ningún número repetido, la lista sobre la que trabajamos es la misma que la de entrada.
-  return (switched_numbers if len(switched_numbers) > 0 else [numbers])
+  # # Si no hay ningún número repetido, la lista sobre la que trabajamos es la misma que la de entrada.
+  # return (switched_numbers if len(switched_numbers) > 0 else [numbers])
+
+  # Devolvemos switched numbers vacio si así sale para una comprobación más adelante
+  return switched_numbers
 
 def table_2_karnaugh(tt:TransitionTable) -> dict:
   equations_by_jkn = { 'j': {}, 'k': {} }
@@ -292,18 +296,52 @@ def get_invalid_solutions(tt:TransitionTable) -> list:
     #   print(f"------------ {tt.transitions[i][1]} doesn't leed to the main loop!! ------------")
     #   print(f"--------------- don't trust this solution, get to the next one :) --------------")
 
-def count_gates(equations:list) -> dict:
+def get_switching_equation(numbers:list, switched_numbers:list, tt:TransitionTable) -> str:
+  # Get the switched number
+  for n, sn in zip(numbers, switched_numbers):
+    if n != sn:
+      switched_number = (ppb(n), ppb(sn))
+      break
+
+  # Find the bit that changes
+  for x in range(NUM_BITS):
+    if switched_number[0][x] != switched_number[1][x]:
+      dif_bit = x;
+  
+  # Karnaugh
+  ones = []
+  xs = []
+  for transition in tt.transitions:
+    curr = ppb(transition[0])
+    nxt = transition[1]
+
+    if nxt == None:
+      xs.append(curr)
+    elif curr[dif_bit] == '1':
+      ones.append(curr)
+  
+  if switched_number[0][dif_bit] == '0':
+    ones.remove(switched_number[1])
+  else:
+    ones.append(switched_number[0])
+  
+  eq = JKEquation(simplify(ones, xs))
+  return eq
+
+def count_gates(equations:dict, switch:JKEquation) -> dict:
   gate_count = {
     "total": 0,
     "or": [0, 0, 0],
     "and": [0, 0, 0]
   }
+  
+  equations['s'] = [switch]
 
-  for jk in ('j', 'k'):
-    for x in range(NUM_BITS):
+  for jk in ('j', 'k', 's'):
+    for x in range(len(equations[jk])):
       eq = equations[jk][x].groups
+      
       val = 0;
-
       # Empty group
       if (len(eq) == 1 and eq[0] == [None] * NUM_BITS):
         val = 0;
@@ -327,6 +365,12 @@ def count_gates(equations:list) -> dict:
 def execute(numbers: list) -> None:
 
   switched_numbers = switch_numbers(numbers)
+  if len(switched_numbers) == 0:
+    switched_numbers = [list(numbers)]
+    switched = False
+  else:
+    switched = True
+
   print(f"Switched numbers (len {len(switched_numbers)}): {switched_numbers}")
   
 
@@ -339,6 +383,14 @@ def execute(numbers: list) -> None:
     tt = TransitionTable(switched_number_list)
     print("Table: ")
     print(tt)
+
+    ## Number switch gate
+    print(switched)
+    if switched:
+      switch_equation = get_switching_equation(numbers, switched_number_list, tt)
+      print(f"The equation for switching the repeated number is: {switch_equation}\n")
+    else:
+      switch_equation = JKEquation(["****"])  # Me estoy tirando un triple aquí :)
 
     # Karnaugh
     equations_by_jkn = table_2_karnaugh(tt)
@@ -356,21 +408,21 @@ def execute(numbers: list) -> None:
         print(f"The series {invalid} is a loop and isn't part of the main one!!!")
       print("If you need this solution, fix it yourself :)")
     
-
     ## Gate count
-    gate_count = count_gates(equations_by_jkn)
+    gate_count = count_gates(equations_by_jkn, switch_equation)
 
+    # print(gate_count)
     print(f"Circuit has {gate_count['total']} gates. (Gates can have more than 2 inputs, each input costs .5)")
     print(f"24 JK registers")
-    
     print(f"{sum([(1 + 0.5 * i) * g for i, g in enumerate(gate_count['and'])])} AND gates")
     print(f"{sum([(1 + 0.5 * i) * g for i, g in enumerate(gate_count['or'])])} OR gates")
-    print("**This doesn't count the module to replace numbers**\n")
+    print("**This COUNTS the module to replace numbers**")
+    print("**Remember that wires can be shared, so the real number might be lower**\n")
 
 
 if __name__ == '__main__':
   ## Leer la serie de números
-  # numbers = [int(n) for n in "0-1-1-2-3-5-8-13".split("-")]
+  # numbers = [int(n) for n in "0-1-4-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
   numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
