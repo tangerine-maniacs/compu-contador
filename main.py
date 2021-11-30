@@ -320,10 +320,10 @@ def get_switching_equation(numbers:list, switched_numbers:list, tt:TransitionTab
     elif curr[dif_bit] == '1':
       ones.append(curr)
   
-  if switched_number[0][dif_bit] == '0':
-    ones.remove(switched_number[1])
+  if switched_number[0][dif_bit] == '1':
+    ones.append(switched_number[1])
   else:
-    ones.append(switched_number[0])
+    ones.remove(switched_number[1])
   
   eq = JKEquation(simplify(ones, xs))
   return eq
@@ -385,7 +385,7 @@ def execute(numbers: list) -> None:
     print(tt)
 
     ## Number switch gate
-    print(switched)
+    # print(switched)
     if switched:
       switch_equation = get_switching_equation(numbers, switched_number_list, tt)
       print(f"The equation for switching the repeated number is: {switch_equation}\n")
@@ -424,7 +424,8 @@ if __name__ == '__main__':
   ## Leer la serie de números
   # numbers = [int(n) for n in "0-1-4-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
-  numbers = [int(n) for n in input("Números: ").split(" ")]
+  numbers = [int(n) for n in "13-10-8-15-5-2-0-15".split("-")]
+  # numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
   execute(numbers)
   
