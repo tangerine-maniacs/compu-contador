@@ -424,8 +424,9 @@ if __name__ == '__main__':
   ## Leer la serie de números
   # numbers = [int(n) for n in "0-1-4-2-3-5-8-13".split("-")]
   # numbers = [int(n) for n in "0-9-15-13-12-8-12-2".split("-")]
-  numbers = [int(n) for n in "13-10-8-15-5-2-0-15".split("-")]
-  # numbers = [int(n) for n in input("Números: ").split(" ")]
+  # numbers = [int(n) for n in "13-10-8-15-5-2-0-15".split("-")]
+  # numbers = [int(n) for n in "7-1-4-15-12-2-4-14".split("-")]
+  numbers = [int(n) for n in input("Números: ").split(" ")]
   print(f"Numbers: {ppbl(numbers)}")
   execute(numbers)
   
