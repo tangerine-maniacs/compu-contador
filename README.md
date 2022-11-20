@@ -195,7 +195,7 @@ prev -> next | J K3| J K2| J K1| J K0
 The equation for switching the repeated number is: Q1nQ2 + Q0Q1
 
 Equation j_0: nQ1nQ3
-Equation j_1: Q0 + Q2
+Equation j_1: Q2 + Q0
 Equation j_2: Q3
 Equation j_3: nQ1
 Equation k_0: nQ1Q2
@@ -251,7 +251,7 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-The equation for switching the repeated number is: Q3
+The equation for switching the repeated number is: Q3 + Q2
 
 Equation j_0: nQ1nQ2nQ3
 Equation j_1: nQ0Q2Q3 + Q0nQ2
@@ -281,10 +281,10 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 31.0 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 32.0 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
 6.0 AND gates
-1.0 OR gates
+2.0 OR gates
 **This COUNTS the module to replace numbers**
 **Remember that wires can be shared, so the real number might be lower**
 
@@ -317,7 +317,7 @@ Equation j_1: nQ2Q3
 Equation j_2: Q3
 Equation j_3: nQ1
 Equation k_0: nQ1Q2
-Equation k_1: nQ2 + Q0
+Equation k_1: nQ3 + Q0
 Equation k_2: nQ0
 Equation k_3: nQ0Q1
 
@@ -329,11 +329,11 @@ prev -> next | J K3| J K2| J K1| J K0
 0011 -> 0001 | 0 x | 0 x | x 1 | x 0
 0100 -> 1001 | 1 x | x 1 | 0 x | 1 x
 0101 -> 1100 | 1 x | x 0 | 0 x | x 1
-0110 -> 0010 | 0 x | x 1 | x 0 | 0 x
+0110 -> 0000 | 0 x | x 1 | x 1 | 0 x
 0111 -> 0101 | 0 x | x 0 | x 1 | x 0
 1000 -> 1110 | x 0 | 1 x | 1 x | 0 x
 1001 -> 1111 | x 0 | 1 x | 1 x | x 0
-1010 -> 0100 | x 1 | 1 x | x 1 | 0 x
+1010 -> 0110 | x 1 | 1 x | x 0 | 0 x
 1011 -> 1101 | x 0 | 1 x | x 1 | x 0
 1100 -> 1000 | x 0 | x 1 | 0 x | 0 x
 1101 -> 1100 | x 0 | x 0 | 0 x | x 1
@@ -369,10 +369,10 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> xxxx | x x | x x | x x | x x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-The equation for switching the repeated number is: Q3
+The equation for switching the repeated number is: Q3 + Q2
 
 Equation j_0: nQ1nQ2nQ3
-Equation j_1: Q0nQ2 + Q2nQ3
+Equation j_1: Q2nQ3 + Q0nQ2
 Equation j_2: Q3
 Equation j_3: nQ1nQ2
 Equation k_0: nQ1Q2
@@ -399,10 +399,10 @@ prev -> next | J K3| J K2| J K1| J K0
 1110 -> 1000 | x 0 | x 1 | x 1 | 0 x
 1111 -> 1101 | x 0 | x 0 | x 1 | x 0
 
-Circuit has 31.5 gates. (Gates can have more than 2 inputs, each input costs .5)
+Circuit has 32.5 gates. (Gates can have more than 2 inputs, each input costs .5)
 24 JK registers
 6.5 AND gates
-1.0 OR gates
+2.0 OR gates
 **This COUNTS the module to replace numbers**
 **Remember that wires can be shared, so the real number might be lower**
 
