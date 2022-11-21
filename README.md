@@ -20,7 +20,7 @@ Aceptamos PRs y Issues. Muchas gracias. 😊
 Clona el notebook de Google Colab haciendo click en el icono de arriba y sigue las instrucciones ahí. 
    
 ### Localmente
-Clona el repositorio y ejecuta el siguiente comando:
+Clona el repositorio y ejecuta el siguiente comando (es necesario python3.10):
 ```
 python3 main.py
 ```
