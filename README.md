@@ -14,11 +14,15 @@ Aceptamos PRs y Issues. Muchas gracias. 😊
 
 ## Uso
 
+### repl.it
+[![Run on Repl.it](https://replit.com/badge/github/tangerine-maniacs/compu-contador)](https://replit.com/@tangerinemaniac/compu-contador?v=1)
+Ejecuta el programa en Repl.it haciendo click en el icono de arriba y tocando el botón de play.
+
 ### Google Colab
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tangerine-maniacs/compu-contador/blob/main/compu_contador.ipynb)
-   
+
 Clona el notebook de Google Colab haciendo click en el icono de arriba y sigue las instrucciones ahí. 
-   
+
 ### Localmente
 Clona el repositorio y ejecuta el siguiente comando (es necesario python3.10):
 ```
