@@ -16,6 +16,7 @@ Aceptamos PRs y Issues. Muchas gracias. 😊
 
 ### Google Colab
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tangerine-maniacs/compu-contador/blob/main/compu_contador.ipynb)
+   
 Clona el notebook de Google Colab haciendo click en el icono de arriba y sigue las instrucciones ahí. 
    
 ### Localmente
