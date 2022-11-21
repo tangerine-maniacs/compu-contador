@@ -16,6 +16,7 @@ Aceptamos PRs y Issues. Muchas gracias. 😊
 
 ### repl.it
 [![Run on Repl.it](https://replit.com/badge/github/tangerine-maniacs/compu-contador)](https://replit.com/@tangerinemaniac/compu-contador?v=1)
+
 Ejecuta el programa en Repl.it haciendo click en el icono de arriba y tocando el botón de play.
 
 ### Google Colab
